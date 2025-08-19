@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Mastery Academy - Become a Funded Trader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --flame-blue: #00f5ff;
+            --flame-light: #7df9ff;
+            --dark-bg: #0f172a;
+            --darker-bg: #020617;
+            --content-bg: #0b1120;
+            --success: #4CAF50;
+            --warning: #FFC107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--darker-bg);
+            color: white;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Logo Background */
+        .logo-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.05;
+            z-index: -1;
+            max-width: 60%;
+            max-height: 60%;
+            pointer-events: none;
+            filter: brightness(1.5);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Navigation with Flame Effect */
+        .nav-container {
+            background: linear-gradient(to bottom, var(--dark-bg), rgba(15, 23, 42, 0.95));
+            padding: 1rem 0;
+            position: relative;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--flame-blue),
+                var(--flame-light),
+                var(--flame-blue),
+                transparent);
+            background-size: 200% 100%;
+            animation: flameFlow 3s linear infinite;
+            box-shadow: 0 0 10px var(--flame-blue), 
+                        0 0 20px var(--flame-blue),
+                        0 0 30px rgba(0, 245, 255, 0.3);
+        }
+        
+        @keyframes flameFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo span {
+            color: var(--flame-blue);
+            font-weight: 700;
+        }
+        
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--flame-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.5);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.7);
+        }
+
+        /* Hero Section with Flame Background */
+        .hero {
+            position: relative;
+            padding: 10rem 1.5rem 6rem;
+            text-align: center;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 245, 255, 0.1) 0%,
+                rgba(15, 23, 42, 0.8) 70%,
+                var(--darker-bg) 100%
+            );
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, white, var(--flame-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .section:nth-child(even) {
+            background-color: var(--content-bg);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--flame-blue), transparent);
+            border-radius: 2px;
+        }
+        
+        /* Benefits Grid */
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .benefit-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: rgba(0, 245, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 245, 255, 0.1);
+            border-color: rgba(0, 245, 255, 0.4);
+        }
+        
+        .benefit-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--flame-light);
+        }
+        
+        .benefit-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* Curriculum Section */
+        .curriculum-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .phase-card {
+            background: var(--dark-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--flame-blue);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 245, 255, 0.1);
+        }
+        
+        .phase-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--flame-light);
+        }
+        
+        .phase-card ul {
+            list-style: none;
+        }
+        
+        .phase-card li {
+            margin-bottom: 0.8rem;
+            padding-left: 0;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.8rem;
+            color: var(--flame-blue);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .testimonial-card {
+            background: var(--dark-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 245, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 245, 255, 0.1);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            color: rgba(0, 245, 255, 0.1);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            line-height: 1;
+        }
+        
+        .testimonial-card p {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-card strong {
+            color: var(--flame-light);
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--flame-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .faq-answer {
+            margin-top: 1rem;
+            display: none;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0 0.5rem;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        /* Pricing Section */
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .pricing-card {
+            background: var(--dark-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 245, 255, 0.1);
+            border-color: var(--flame-blue);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--flame-light);
+        }
+        
+        .price-old {
+            color: #ff6b6b;
+            text-decoration: line-through;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-new {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--flame-blue);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .price-label {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 0.5rem;
+        }
+        
+        .pricing-features {
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Payment buttons */
+        .payment-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .payment-button {
+            background: linear-gradient(to right, var(--success), #2E7D32);
+            color: white;
+            padding: 1.2rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            text-align: center;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .payment-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .payment-button.vu {
+            background: linear-gradient(to right, #2196F3, #0D47A1);
+        }
+        
+        .payment-button strong {
+            font-size: 1.4rem;
+            margin-top: 0.5rem;
+        }
+        
+        .early-bird {
+            color: var(--flame-blue);
+            font-weight: 700;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        
+        /* Countdown Timer */
+        .countdown-container {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 245, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid var(--flame-blue);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .countdown-title {
+            margin-bottom: 1rem;
+            color: var(--flame-light);
+            font-size: 1.3rem;
+        }
+        
+        #countdown {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .countdown-note {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            padding: 4rem 1.5rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 245, 255, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--flame-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--flame-light);
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Floating CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark-bg);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        
+        .telegram-float {
+            position: fixed;
+            bottom: 80px;
+            right: 30px;
+            z-index: 999;
+            background: #0088cc;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .telegram-float:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Trust badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        
+        .trust-badge i {
+            color: var(--success);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .payment-buttons {
+                flex-direction: column;
+            }
+            
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card {
+                min-width: 100%;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                padding: 1.5rem;
+                gap: 1rem;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: var(--dark-bg);
+            margin: 10% auto;
+            padding: 2.5rem;
+            border: 1px solid var(--flame-blue);
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0, 245, 255, 0.2);
+        }
+        
+        .close {
+            color: var(--flame-light);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+        
+        .close:hover {
+            color: white;
+        }
+        
+        /* Smooth scroll for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Pulse animation for urgency */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .urgent-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Form styles */
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            border: 1px solid var(--flame-blue);
+            background: rgba(0,0,0,0.2);
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Review stars */
+        .rating-stars {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-star {
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: #444;
+            transition: all 0.2s ease;
+        }
+        
+        .rating-star.active {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo Background -->
+    <img src="fma-logo.png" alt="Forex Mastery Academy" class="logo-bg">
+
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <a href="#" class="logo">
+                <img src="fma-logo.png" alt="Forex Mastery Academy" class="logo-img">
+                Forex<span>Mastery</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#curriculum">Curriculum</a>
+                <a href="#results">Results</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <a href="#pricing" class="cta-button">Enroll Now</a>
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+    </div>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Struggling to Profit? We'll Help You Trade With Confidence, Funded & Fear-Free</h1>
+            <p>Join 100+ Victoria University students who transformed from beginners to funded traders in 12 weeks</p>
+            
+            <div class="hero-buttons">
+                <a href="#pricing" class="cta-button" style="padding: 0.9rem 2.5rem;">🎯 Enroll Now - Save 58%</a>
+                <a href="#free-guide" class="cta-button" style="background: transparent; border: 2px solid var(--flame-blue);">Get Free Guide</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Grid -->
+    <section id="benefits" class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Forex Mastery Academy?</h2>
+            
+            <div class="benefit-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">✅</div>
+                    <h3>Price Action Mastery</h3>
+                    <p>Learn institutional trading strategies most retail traders never see</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h3>Psychology Blueprint</h3>
+                    <p>Develop the mindset of top 1% funded traders</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">💸</div>
+                    <h3>Funding Shortcuts</h3>
+                    <p>Pass prop firm challenges with our risk management framework</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#curriculum" class="cta-button">Discover Our Method</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Comprehensive Curriculum</h2>
+            
+            <div class="curriculum-container">
+                <div class="phase-card">
+                    <h3>Phase 1: Market Foundations (Weeks 1-2)</h3>
+                    <ul>
+                        <li>📊 Institutional vs. retail trading differences</li>
+                        <li>💧 Liquidity and order flow analysis</li>
+                        <li>🧘 Trading psychology fundamentals</li>
+                        <li>📈 Market structure identification</li>
+                        <li>🔍 Understanding economic calendars</li>
+                    </ul>
+                </div>
+                
+                <div class="phase-card">
+                    <h3>Phase 2: Technical Edge (Weeks 3-6)</h3>
+                    <ul>
+                        <li>📈 FMA proprietary strategy framework</li>
+                        <li>⚡ High-probability setups with 3:1+ risk/reward</li>
+                        <li>📉 Support/resistance that actually works</li>
+                        <li>🎯 Precision entry and exit techniques</li>
+                        <li>📊 Multiple timeframe analysis mastery</li>
+                    </ul>
+                </div>
+                
+                <div class="phase-card">
+                    <h3>Phase 3: Live Funding (Weeks 7-12)</h3>
+                    <ul>
+                        <li>💰 Prop firm challenge execution plan</li>
+                        <li>🛡️ Drawdown protection techniques</li>
+                        <li>📱 Daily mentor support during challenges</li>
+                        <li>📝 Trading journal optimization</li>
+                        <li>🚀 Scaling plans for funded accounts</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#pricing" class="cta-button">Get Full Curriculum PDF</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Results Section -->
+    <section id="results" class="section">
+        <div class="container">
+            <h2 class="section-title">Proven Results</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Students Funded</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">$500K+</div>
+                    <div class="stat-label">Collective Payouts</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">Challenge Pass Rate</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Weeks to Funding</div>
+                </div>
+            </div>
+            
+            <!-- Trust badges -->
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <i>🔒</i> 30-Day Money Back Guarantee
+                </div>
+                <div class="trust-badge">
+                    <i>⭐</i> 4.9/5 Student Rating
+                </div>
+                <div class="trust-badge">
+                    <i>👥</i> 1-on-1 Mentor Support
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <div class="container">
+            <h2 class="section-title">Student Success Stories</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"After struggling for 2 years, I became consistently profitable within 3 months of joining FMA. Withdrew $8,200 last month alone."</p>
+                    <p><strong>- Michael T., $50K Funded</strong></p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p>"The psychology training completely changed my trading. I've now passed two $50K funding challenges and working on a third."</p>
+                    <p><strong>- Sarah K., 3 Challenges Passed</strong></p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p>"From blowing accounts to managing a $100K portfolio in 9 months. This program delivers real results if you follow the process."</p>
+                    <p><strong>- David R., $100K Funded</strong></p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#live-reviews" class="cta-button">See More Success Stories</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section id="pricing" class="section">
+        <div class="container">
+            <h2 class="section-title">Ready to Transform Your Trading?</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 2rem;">Join hundreds of traders who've transformed their results with Forex Mastery Academy</p>
+            
+            <div class="early-bird">EARLY BIRD SPECIAL - LIMITED TIME OFFER!</div>
+            
+            <!-- Discount Price Display -->
+            <div style="display: flex; justify-content: center; gap: 3rem; margin: 2rem 0; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="color: #ff6b6b; text-decoration: line-through; font-size: 1.3rem;">$300</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--flame-blue);">Now $150</div>
+                    <div style="font-size: 0.9rem; color: #aaa; margin-top: 0.5rem;">(Non-VU Students)</div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="color: #ff6b6b; text-decoration: line-through; font-size: 1.3rem;">$240</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--flame-blue);">Now $100</div>
+                    <div style="font-size: 0.9rem; color: #aaa; margin-top: 0.5rem;">(VU Students)</div>
+                </div>
+            </div>
+
+            <div style="color: var(--success); font-weight: bold; margin: 1.5rem 0; text-align: center; font-size: 1.3rem;">
+                SAVE UP TO 58% - LIMITED TIME OFFER!
+            </div>
+  </section>
+
+    <section id="free-guide" style="background: var(--dark-bg); text-align: center; padding: 5rem 2rem;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Not Ready to Enroll?</h2>
+    <p style="max-width: 600px; margin: 0 auto 2rem;">Get our free guide: <strong>"5 Mindset Shifts Every Funded Trader Makes"</strong></p>
+    <form style="max-width: 400px; margin: 0 auto;">
+        <input type="email" placeholder="Your Email" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 4px; border: none;">
+        <button type="submit" class="cta-button" style="width: 100%; padding: 0.75rem;">Get Free Guide</button>
+    </form>
+</section>
+
+    <section style="background: linear-gradient(135deg, #0088cc 0%, #34b7f1 100%); padding: 3rem 2rem; text-align: center; margin-top: 2rem;">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h2 style="color: white; margin-bottom: 1rem;">Get Daily Trading Insights</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem;">Join our FREE Telegram channel for market analysis, live trade ideas, and exclusive lessons</p>
+        <a href="https://t.me/forexmasteryacademyug" target="_blank" style="display: inline-flex; align-items: center; background: white; color: #0088cc; padding: 0.75rem 2rem; border-radius: 50px; font-weight: bold; text-decoration: none;">
+            <svg style="width:24px;height:24px;margin-right:10px;" viewBox="0 0 24 24">
+                <path fill="#0088cc" d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+            </svg>
+            Join Telegram Channel
+        </a>
+    </div>
+</section>
+
+    <section id="live-reviews" class="section" style="background: var(--content-bg);">
+    <h2 class="section-title">Live Trader Success Stories</h2>
+    
+    <!-- Review Form -->
+    <div style="max-width: 600px; margin: 2rem auto; background: var(--dark-bg); padding: 2rem; border-radius: 8px;">
+        <h3 style="color: var(--flame-light); margin-bottom: 1rem;">Share Your Win</h3>
+        <form id="instantReviewForm">
+            <input type="text" id="reviewName" placeholder="Your Name (Optional)" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 4px; border: 1px solid var(--flame-blue); background: rgba(0,0,0,0.2); color: white;">
+            
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                <span onclick="rate(1)" style="cursor: pointer; font-size: 1.5rem; color: gold;">☆</span>
+                <span onclick="rate(2)" style="cursor: pointer; font-size: 1.5rem; color: gold;">☆</span>
+                <span onclick="rate(3)" style="cursor: pointer; font-size: 1.5rem; color: gold;">☆</span>
+                <span onclick="rate(4)" style="cursor: pointer; font-size: 1.5rem; color: gold;">☆</span>
+                <span onclick="rate(5)" style="cursor: pointer; font-size: 1.5rem; color: gold;">☆</span>
+            </div>
+            <input type="hidden" id="userRating" value="0">
+            
+            <textarea id="reviewContent" placeholder="Your trading win (e.g. 'Passed $50K challenge in 2 weeks!')" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 4px; border: 1px solid var(--flame-blue); background: rgba(0,0,0,0.2); color: white; min-height: 100px;"></textarea>
+            
+            <input type="file" id="screenshotUpload" accept="image/*" style="width: 100%; margin-bottom: 1rem;">
+            <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 1rem;">Max 1MB - Blur sensitive account info</p>
+            
+            <button type="submit" class="cta-button" style="width: 100%; padding: 0.75rem;">Post Review Instantly</button>
+        </form>
+    </div>
+    
+    <!-- Live Reviews Container -->
+    <div id="reviewsContainer" style="max-width: 800px; margin: 0 auto;">
+        <!-- Reviews will appear here automatically -->
+    </div>
+</section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2023 Forex Mastery Academy. All rights reserved.</p>
+        <div style="margin-top: 1rem;">
+            <a href="#terms" style="color: var(--flame-blue); margin: 0 1rem;">Terms & Conditions</a>
+            <a href="#privacy" style="color: var(--flame-blue); margin: 0 1rem;">Privacy Policy</a>
+            <a href="#contact" style="color: var(--flame-blue); margin: 0 1rem;">Contact</a>
+        </div>
+    </footer>
+
+    <!-- Terms Modal -->
+    <div id="terms" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Terms & Conditions</h2>
+            <p><strong>Last Updated:</strong> 2023</p>
+            
+            <h3>1. Enrollment</h3>
+            <p>By enrolling in Forex Mastery Academy, you agree to pay the full course fee and abide by all program rules and guidelines.</p>
+            
+            <h3>2. Refund Policy</h3>
+            <p>We offer a 30-day money-back guarantee if you complete the first 3 modules and are not satisfied with the content.</p>
+            
+            <h3>3. Intellectual Property</h3>
+            <p>All course materials are proprietary and may not be shared, reproduced, or distributed without express written permission.</p>
+            
+            <h3>4. Disclaimer</h3>
+            <p>Forex trading involves substantial risk of loss and is not suitable for all investors. Past performance is not indicative of future results.</p>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div id="privacy" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Privacy Policy</h2>
+            <p><strong>Last Updated:</strong> 2023</p>
+            
+            <h3>1. Information Collection</h3>
+            <p>We collect personal information including name, email, and payment details when you enroll in our program.</p>
+            
+            <h3>2. Data Usage</h3>
+            <p>Your information is used to process payments, provide course access, and communicate important updates.</p>
+            
+            <h3>3. Data Protection</h3>
+            <p>We implement security measures to protect your personal information, but no method is 100% secure.</p>
+            
+            <h3>4. Third Parties</h3>
+            <p>We do not sell your data but may share necessary information with payment processors and service providers.</p>
+        </div>
+    </div>
+
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: var(--dark-bg);
+            margin: 10% auto;
+            padding: 2rem;
+            border: 1px solid var(--flame-blue);
+            width: 80%;
+            max-width: 800px;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        
+        .close {
+            color: var(--flame-light);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: white;
+        }
+        /* Smooth scroll for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Pulse animation for urgency */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.urgent-pulse {
+    animation: pulse 2s infinite;
+}
+    </style>
+    
+    <script>
+        // FAQ Toggle Function
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('span:last-child');
+            
+            answer.classList.toggle('show');
+            icon.textContent = answer.classList.contains('show') ? '-' : '+';
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#terms' || targetId === '#privacy') {
+                    // Handle modal display
+                    document.querySelector(targetId).style.display = 'block';
+                } else {
+                    // Regular smooth scrolling
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Close modals when clicking X
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                this.closest('.modal').style.display = 'none';
+            });
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        });
+
+        // Load your actual logo (replace placeholder)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Replace this with your actual logo URL
+            const logoUrl = 'YOUR_LOGO_URL_HERE';
+            document.getElementById('logo-bg').src = logoUrl;
+        });
+    </script>
+<div style="position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark-bg); padding: 1rem; text-align: center; box-shadow: 0 -5px 15px rgba(0,0,0,0.3); z-index: 1000;">
+    <a href="#enroll" class="cta-button" style="padding: 0.75rem 2rem; font-size: 1.1rem;">🚀 Only 7 Spots Left - Enroll Now</a>
+</div>
+
+<a href="https://t.me/forexmasteryacademyug" target="_blank" style="position: fixed; bottom: 30px; right: 30px; z-index: 999; background: #0088cc; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+    <svg style="width:32px;height:32px;" viewBox="0 0 24 24">
+        <path fill="white" d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+    </svg>
+</a>
+
+    <script>
+// Simple in-memory storage (for demo - replace with localStorage for persistence)
+let allReviews = [];
+
+// Rating System
+function rate(stars) {
+    const starElements = document.querySelectorAll('#instantReviewForm span');
+    starElements.forEach((star, index) => {
+        star.textContent = index < stars ? '★' : '☆';
+    });
+    document.getElementById('userRating').value = stars;
+}
+
+// Form Submission
+document.getElementById('instantReviewForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('reviewName').value || "Anonymous Trader";
+    const rating = document.getElementById('userRating').value;
+    const content = document.getElementById('reviewContent').value;
+    const fileInput = document.getElementById('screenshotUpload');
+    
+    // Basic validation
+    if(!content) {
+        alert("Please share your trading experience!");
+        return;
+    }
+    
+    // Create review object
+    const review = {
+        name,
+        rating,
+        content,
+        date: new Date().toLocaleDateString(),
+        screenshot: null
+    };
+    
+    // Handle image upload
+    if(fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            review.screenshot = e.target.result;
+            addReviewToPage(review);
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+    } else {
+        addReviewToPage(review);
+    }
+    
+    // Reset form
+    this.reset();
+    document.querySelectorAll('#instantReviewForm span').forEach(s => s.textContent = '☆');
+});
+
+// Display New Review
+function addReviewToPage(review) {
+    allReviews.unshift(review); // Add to beginning
+    renderReviews();
+}
+
+// Render All Reviews
+function renderReviews() {
+    const container = document.getElementById('reviewsContainer');
+    container.innerHTML = '';
+    
+    allReviews.forEach(review => {
+        const reviewHTML = `
+        <div class="review-card" style="background: var(--dark-bg); padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 8px; border-left: 3px solid var(--flame-blue);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <h4 style="margin: 0; color: var(--flame-light);">${review.name}</h4>
+                <div style="color: gold;">
+                    ${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}
+                </div>
+            </div>
+            <p style="margin: 0.5rem 0;">${review.content}</p>
+            ${review.screenshot ? `<img src="${review.screenshot}" alt="Trading proof" style="max-width: 100%; max-height: 200px; border-radius: 4px; margin-top: 1rem; border: 1px solid var(--flame-blue);">` : ''}
+            <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #aaa;">Posted ${review.date}</p>
+        </div>
+        `;
+        container.insertAdjacentHTML('afterbegin', reviewHTML);
+    });
+}
+
+// Optional: Load saved reviews on page load
+window.addEventListener('DOMContentLoaded', () => {
+    // For persistence, use localStorage instead:
+    // allReviews = JSON.parse(localStorage.getItem('forexReviews')) || [];
+    renderReviews();
+});
+</script>
+    
+</body>
+</html>
