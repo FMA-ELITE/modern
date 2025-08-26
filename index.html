@@ -1434,386 +1434,179 @@
         </div>
     </div>
     
-    <!-- Dashboard Section (initially hidden) -->
-    <div id="dashboard" class="dashboard-container">
-        <div class="dashboard-header">
-            <h2 class="dashboard-welcome">Welcome, <span id="userName">Trader</span>!</h2>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+   <!-- Dashboard Section (initially hidden) -->
+<div id="dashboard" class="dashboard-container">
+    <div class="dashboard-header">
+        <h2 class="dashboard-welcome">Welcome, <span id="userName">Trader</span>!</h2>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    
+    <div class="dashboard-nav">
+        <div class="dashboard-nav-item active" onclick="switchDashboardTab('courses')">My Courses</div>
+        <div class="dashboard-nav-item" onclick="switchDashboardTab('signals')">Trading Signals</div>
+        <div class="dashboard-nav-item" onclick="switchDashboardTab('community')">Community</div>
+        <div class="dashboard-nav-item" onclick="switchDashboardTab('account')">Account Settings</div>
+    </div>
+    
+    <div id="coursesTab" class="dashboard-content">
+        <div class="dashboard-card">
+            <h3>Your Courses</h3>
+            <ul class="course-list">
+                <li>
+                    <div>Price Action Mastery</div>
+                    <div class="course-progress">
+                        <div class="progress-bar" style="width: 35%;"></div>
+                    </div>
+                </li>
+                <li>
+                    <div>Psychology Blueprint</div>
+                    <div class="course-progress">
+                        <div class="progress-bar" style="width: 15%;"></div>
+                    </div>
+                </li>
+                <li>
+                    <div>Funding Challenge Prep</div>
+                    <div class="course-progress">
+                        <div class="progress-bar" style="width: 5%;"></div>
+                    </div>
+                </li>
+            </ul>
         </div>
         
-        <div class="dashboard-nav">
-            <div class="dashboard-nav-item active" onclick="switchDashboardTab('courses')">My Courses</div>
-            <div class="dashboard-nav-item" onclick="switchDashboardTab('signals')">Trading Signals</div>
-            <div class="dashboard-nav-item" onclick="switchDashboardTab('community')">Community</div>
-            <div class="dashboard-nav-item" onclick="switchDashboardTab('account')">Account Settings</div>
-        </div>
-        
-        <div id="coursesTab" class="dashboard-content">
-            <div class="dashboard-card">
-                <h3>Your Courses</h3>
-                <ul class="course-list">
-                    <li>
-                        <div>Price Action Mastery</div>
-                        <div class="course-progress">
-                            <div class="progress-bar" style="width: 35%;"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div>Psychology Blueprint</div>
-                        <div class="course-progress">
-                            <div class="progress-bar" style="width: 15%;"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div>Funding Challenge Prep</div>
-                        <div class="course-progress">
-                            <div class="progress-bar" style="width: 5%;"></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="dashboard-card">
-                <h3>Continue Learning</h3>
-                <div style="text-align: center; padding: 2rem 1rem;">
-                    <p>Your next lesson: Market Structure Identification</p>
-                    <a href="#" class="cta-button" style="margin-top: 1rem;">Resume Learning</a>
-                </div>
-            </div>
-        </div>
-        
-        <div id="signalsTab" class="dashboard-content" style="display: none;">
-            <div class="dashboard-card">
-                <h3>Live Trading Signals</h3>
-                <div class="signal-item">
-                    <div class="signal-pair">EUR/USD - BUY</div>
-                    <div>Entry: 1.0850 | SL: 1.0820 | TP: 1.0920</div>
-                    <div class="signal-details">
-                        <span>Active</span>
-                        <span>Posted: 2 hours ago</span>
-                    </div>
-                </div>
-                
-                <div class="signal-item closed">
-                    <div class="signal-pair">GBP/JPY - SELL</div>
-                    <div>Entry: 183.50 | SL: 184.20 | TP: 181.80</div>
-                    <div class="signal-details">
-                        <span>Target Hit (+170 pips)</span>
-                        <span>Posted: 1 day ago</span>
-                    </div>
-                </div>
-                
-                <div class="signal-item">
-                    <div class="signal-pair">XAU/USD - BUY</div>
-                    <div>Entry: 1980 | SL: 1965 | TP: 2010</div>
-                    <div class="signal-details">
-                        <span>Active</span>
-                        <span>Posted: 5 hours ago</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="dashboard-card">
-                <h3>Signal Performance</h3>
-                <div style="text-align: center; padding: 1rem;">
-                    <div style="font-size: 2rem; color: var(--success); font-weight: bold;">76%</div>
-                    <div>Success Rate</div>
-                </div>
-                <div style="display: flex; justify-content: space-around; margin-top: 1.5rem;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 1.5rem; color: var(--flame-light);">42</div>
-                        <div>Winning Trades</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 1.5rem; color: #ff6b6b;">13</div>
-                        <div>Losing Trades</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="communityTab" class="dashboard-content" style="display: none;">
-            <div class="dashboard-card">
-                <h3>Community Discussions</h3>
-                <div class="community-post">
-                    <div class="post-author">Michael T. (Funded Trader)</div>
-                    <div class="post-content">Just passed my $100K challenge! The psychology techniques from Module 3 were game-changing.</div>
-                    <div class="post-meta">
-                        <span>2 hours ago</span>
-                        <span>12 comments</span>
-                    </div>
-                </div>
-                
-                <div class="community-post">
-                    <div class="post-author">Sarah K. (Mentor)</div>
-                    <div class="post-content">Live Q&A session tomorrow at 3 PM GMT. Bring your charts and questions!</div>
-                    <div class="post-meta">
-                        <span>5 hours ago</span>
-                        <span>7 comments</span>
-                    </div>
-                </div>
-                
-                <div class="community-post">
-                    <div class="post-author">David R.</div>
-                    <div class="post-content">Can someone explain how to identify liquidity pools on the 15m chart?</div>
-                    <div class="post-meta">
-                        <span>1 day ago</span>
-                        <span>23 comments</span>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 1.5rem;">
-                    <textarea placeholder="Join the conversation..." style="width: 100%; padding: 0.75rem; border-radius: 4px; border: 1px solid var(--flame-blue); background: rgba(0,0,0,0.2); color: white; min-height: 80px;"></textarea>
-                    <button class="cta-button" style="margin-top: 0.5rem;">Post</button>
-                </div>
-            </div>
-        </div>
-        
-        <div id="accountTab" class="dashboard-content" style="display: none;">
-            <div class="dashboard-card">
-                <h3>Account Settings</h3>
-                <div class="form-group">
-                    <label for="editName">Full Name</label>
-                    <input type="text" id="editName">
-                </div>
-                <div class="form-group">
-                    <label for="editEmail">Email Address</label>
-                    <input type="email" id="editEmail">
-                </div>
-                <div class="form-group">
-                    <label for="editPhone">Phone Number</label>
-                    <input type="tel" id="editPhone">
-                </div>
-                <div class="form-group">
-                    <label for="editCountry">Country</label>
-                    <input type="text" id="editCountry">
-                </div>
-                <button class="cta-button">Save Changes</button>
-                
-                <h3 style="margin-top: 2rem;">Change Password</h3>
-                <div class="form-group">
-                    <label for="currentPassword">Current Password</label>
-                    <input type="password" id="currentPassword">
-                </div>
-                <div class="form-group">
-                    <label for="newPassword">New Password</label>
-                    <input type="password" id="newPassword">
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm New Password</label>
-                    <input type="password" id="confirmPassword">
-                </div>
-                <button class="cta-button">Update Password</button>
+        <div class="dashboard-card">
+            <h3>Continue Learning</h3>
+            <div style="text-align: center; padding: 2rem 1rem;">
+                <p>Your next lesson: Market Structure Identification</p>
+                <a href="#" class="cta-button" style="margin-top: 1rem;">Resume Learning</a>
             </div>
         </div>
     </div>
     
-    <script>
-        // Authentication System
-        let currentUser = null;
-        let otpCode = '';
+    <div id="signalsTab" class="dashboard-content" style="display: none;">
+        <div class="dashboard-card">
+            <h3>Live Trading Signals</h3>
+            <div class="signal-item">
+                <div class="signal-pair">EUR/USD - BUY</div>
+                <div>Entry: 1.0850 | SL: 1.0820 | TP: 1.0920</div>
+                <div class="signal-details">
+                    <span>Active</span>
+                    <span>Posted: 2 hours ago</span>
+                </div>
+            </div>
+            
+            <div class="signal-item closed">
+                <div class="signal-pair">GBP/JPY - SELL</div>
+                <div>Entry: 183.50 | SL: 184.20 | TP: 181.80</div>
+                <div class="signal-details">
+                    <span>Target Hit (+170 pips)</span>
+                    <span>Posted: 1 day ago</span>
+                </div>
+            </div>
+            
+            <div class="signal-item">
+                <div class="signal-pair">XAU/USD - BUY</div>
+                <div>Entry: 1980 | SL: 1965 | TP: 2010</div>
+                <div class="signal-details">
+                    <span>Active</span>
+                    <span>Posted: 5 hours ago</span>
+                </div>
+            </div>
+        </div>
         
-        // Check if user is already logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedUser = localStorage.getItem('forexUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showDashboard();
-            }
+        <div class="dashboard-card">
+            <h3>Signal Performance</h3>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 2rem; color: var(--success); font-weight: bold;">76%</div>
+                <div>Success Rate</div>
+            </div>
+            <div style="display: flex; justify-content: space-around; margin-top: 1.5rem;">
+                <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; color: var(--flame-light);">42</div>
+                    <div>Winning Trades</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; color: #ff6b6b;">13</div>
+                    <div>Losing Trades</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="communityTab" class="dashboard-content" style="display: none;">
+        <div class="dashboard-card">
+            <h3>Community Discussions</h3>
+            <div class="community-post">
+                <div class="post-author">Michael T. (Funded Trader)</div>
+                <div class="post-content">Just passed my $100K challenge! The psychology techniques from Module 3 were game-changing.</div>
+                <div class="post-meta">
+                    <span>2 hours ago</span>
+                    <span>12 comments</span>
+                </div>
+            </div>
             
-            // Update Get Started button to open auth modal
-            document.querySelectorAll('.cta-button').forEach(button => {
-                if (button.textContent.includes('Enroll Now') || button.textContent.includes('Get Started')) {
-                    button.addEventListener('click', function(e) {
-                        if (!currentUser) {
-                            e.preventDefault();
-                            openAuthModal();
-                        }
-                    });
-                }
-            });
-        });
-        
-        function openAuthModal() {
-            document.getElementById('authModal').style.display = 'block';
-        }
-        
-        function closeAuthModal() {
-            document.getElementById('authModal').style.display = 'none';
-        }
-        
-        function switchAuthTab(tab) {
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            <div class="community-post">
+                <div class="post-author">Sarah K. (Mentor)</div>
+                <div class="post-content">Live Q&A session tomorrow at 3 PM GMT. Bring your charts and questions!</div>
+                <div class="post-meta">
+                    <span>5 hours ago</span>
+                    <span>7 comments</span>
+                </div>
+            </div>
             
-            if (tab === 'register') {
-                document.querySelector('.auth-tab:first-child').classList.add('active');
-                document.getElementById('registerForm').classList.add('active');
-            } else {
-                document.querySelector('.auth-tab:last-child').classList.add('active');
-                document.getElementById('loginForm').classList.add('active');
-            }
-        }
-        
-        // Registration form submission
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            <div class="community-post">
+                <div class="post-author">David R.</div>
+                <div class="post-content">Can someone explain how to identify liquidity pools on the 15m chart?</div>
+                <div class="post-meta">
+                    <span>1 day ago</span>
+                    <span>23 comments</span>
+                </div>
+            </div>
             
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const country = document.getElementById('country').value;
+            <div style="margin-top: 1.5rem;">
+                <textarea placeholder="Join the conversation..." style="width: 100%; padding: 0.75rem; border-radius: 4px; border: 1px solid var(--flame-blue); background: rgba(0,0,0,0.2); color: white; min-height: 80px;"></textarea>
+                <button class="cta-button" style="margin-top: 0.5rem;">Post</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="accountTab" class="dashboard-content" style="display: none;">
+        <div class="dashboard-card">
+            <h3>Account Settings</h3>
+            <div class="form-group">
+                <label for="editName">Full Name</label>
+                <input type="text" id="editName">
+            </div>
+            <div class="form-group">
+                <label for="editEmail">Email Address</label>
+                <input type="email" id="editEmail">
+            </div>
+            <div class="form-group">
+                <label for="editPhone">Phone Number</label>
+                <input type="tel" id="editPhone">
+            </div>
+            <div class="form-group">
+                <label for="editCountry">Country</label>
+                <input type="text" id="editCountry">
+            </div>
+            <button class="cta-button">Save Changes</button>
             
-            // In a real implementation, you would send this data to your server
-            // For demo purposes, we'll simulate the process
-            
-            // Generate a random 6-digit OTP
-            otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-            
-            // Show verification form
-            document.getElementById('registerForm').classList.remove('active');
-            document.getElementById('verifyForm').classList.add('active');
-            
-            // In a real implementation, you would send this OTP via WhatsApp API
-            alert(`DEMO: OTP ${otpCode} would be sent to ${phone} via WhatsApp`);
-            
-            // Save user data temporarily
-            currentUser = { name, email, phone, country };
-        });
-        
-        // OTP verification
-        document.getElementById('verifyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get OTP from input fields
-            const otpInputs = document.querySelectorAll('.otp-input');
-            let enteredOtp = '';
-            otpInputs.forEach(input => {
-                enteredOtp += input.value;
-            });
-            
-            // Verify OTP
-            if (enteredOtp === otpCode) {
-                // Create account
-                alert('Account created successfully!');
-                
-                // Set a default password for demo
-                currentUser.password = 'defaultPassword';
-                
-                // Save to localStorage
-                localStorage.setItem('forexUser', JSON.stringify(currentUser));
-                
-                // Close modal and show dashboard
-                closeAuthModal();
-                showDashboard();
-            } else {
-                alert('Invalid verification code. Please try again.');
-            }
-        });
-        
-        // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('password').value;
-            
-            // In a real implementation, you would verify credentials with your server
-            // For demo, we'll check against localStorage
-            const savedUser = localStorage.getItem('forexUser');
-            
-            if (savedUser) {
-                const user = JSON.parse(savedUser);
-                if (user.email === email && user.password === password) {
-                    currentUser = user;
-                    closeAuthModal();
-                    showDashboard();
-                    return;
-                }
-            }
-            
-            alert('Invalid email or password');
-        });
-        
-        function resendOTP() {
-            // Resend OTP logic
-            otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-            alert(`DEMO: New OTP ${otpCode} sent to your WhatsApp`);
-        }
-        
-        function moveToNext(input) {
-            if (input.value.length === 1) {
-                const next = input.nextElementSibling;
-                if (next) next.focus();
-            }
-        }
-        
-        function showDashboard() {
-            // Hide main content
-            document.querySelectorAll('section, footer').forEach(el => {
-                el.style.display = 'none';
-            });
-            
-            // Hide floating CTA
-            document.querySelector('.floating-cta').style.display = 'none';
-            
-            // Show dashboard
-            document.getElementById('dashboard').style.display = 'block';
-            
-            // Update user name
-            document.getElementById('userName').textContent = currentUser.name;
-            
-            // Prefill account settings
-            document.getElementById('editName').value = currentUser.name;
-            document.getElementById('editEmail').value = currentUser.email;
-            document.getElementById('editPhone').value = currentUser.phone;
-            document.getElementById('editCountry').value = currentUser.country;
-        }
-        
-        function switchDashboardTab(tab) {
-            // Update active nav item
-            document.querySelectorAll('.dashboard-nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Show selected tab content
-            document.getElementById('coursesTab').style.display = 'none';
-            document.getElementById('signalsTab').style.display = 'none';
-            document.getElementById('communityTab').style.display = 'none';
-            document.getElementById('accountTab').style.display = 'none';
-            
-            document.getElementById(tab + 'Tab').style.display = 'grid';
-        }
-        
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('forexUser');
-            
-            // Hide dashboard
-            document.getElementById('dashboard').style.display = 'none';
-            
-            // Show main content
-            document.querySelectorAll('section, footer').forEach(el => {
-                el.style.display = 'block';
-            });
-            
-            // Show floating CTA
-            document.querySelector('.floating-cta').style.display = 'block';
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target.classList.contains('auth-modal')) {
-                closeAuthModal();
-            }
-        });
-    </script>
-</body>
-</html>
+            <h3 style="margin-top: 2rem;">Change Password</h3>
+            <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword">
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword">
+            </div>
+            <button class="cta-button">Update Password</button>
+        </div>
+    </div>
+</div>
     
     <!-- Footer -->
     <footer>
