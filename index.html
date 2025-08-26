@@ -1434,179 +1434,839 @@
         </div>
     </div>
     
-   <!-- Dashboard Section (initially hidden) -->
-<div id="dashboard" class="dashboard-container">
-    <div class="dashboard-header">
-        <h2 class="dashboard-welcome">Welcome, <span id="userName">Trader</span>!</h2>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-    
-    <div class="dashboard-nav">
-        <div class="dashboard-nav-item active" onclick="switchDashboardTab('courses')">My Courses</div>
-        <div class="dashboard-nav-item" onclick="switchDashboardTab('signals')">Trading Signals</div>
-        <div class="dashboard-nav-item" onclick="switchDashboardTab('community')">Community</div>
-        <div class="dashboard-nav-item" onclick="switchDashboardTab('account')">Account Settings</div>
-    </div>
-    
-    <div id="coursesTab" class="dashboard-content">
-        <div class="dashboard-card">
-            <h3>Your Courses</h3>
-            <ul class="course-list">
-                <li>
-                    <div>Price Action Mastery</div>
-                    <div class="course-progress">
-                        <div class="progress-bar" style="width: 35%;"></div>
-                    </div>
-                </li>
-                <li>
-                    <div>Psychology Blueprint</div>
-                    <div class="course-progress">
-                        <div class="progress-bar" style="width: 15%;"></div>
-                    </div>
-                </li>
-                <li>
-                    <div>Funding Challenge Prep</div>
-                    <div class="course-progress">
-                        <div class="progress-bar" style="width: 5%;"></div>
-                    </div>
-                </li>
-            </ul>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Mastery Academy - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Dashboard Specific Styles */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 80px auto 2rem;
+            padding: 0 1.5rem;
+            display: none;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+            flex-wrap: wrap;
+        }
+        
+        .dashboard-welcome {
+            font-size: 1.8rem;
+            color: var(--flame-light);
+            margin-right: 1rem;
+        }
+        
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 245, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+        
+        .dashboard-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .dashboard-nav-item {
+            padding: 0.75rem 1.5rem;
+            background: rgba(0, 245, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .dashboard-nav-item:hover {
+            background: rgba(0, 245, 255, 0.2);
+        }
+        
+        .dashboard-nav-item.active {
+            background: var(--flame-blue);
+            color: var(--dark-bg);
+        }
+        
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .dashboard-card {
+            background: var(--content-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.1);
+        }
+        
+        .dashboard-card h3 {
+            color: var(--flame-light);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .course-list {
+            list-style: none;
+        }
+        
+        .course-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .course-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .course-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--flame-blue);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        .signal-item {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--success);
+            transition: all 0.3s ease;
+        }
+        
+        .signal-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .signal-item.closed {
+            border-left-color: #ff6b6b;
+        }
+        
+        .signal-pair {
+            font-weight: 600;
+            color: var(--flame-light);
+        }
+        
+        .signal-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .community-post {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .community-post:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(0, 245, 255, 0.1);
+        }
+        
+        .post-author {
+            font-weight: 600;
+            color: var(--flame-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .post-content {
+            margin-bottom: 0.5rem;
+        }
+        
+        .post-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logout-btn:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        /* Performance Chart */
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        /* Quick Stats */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: rgba(0, 245, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--flame-blue);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Notifications */
+        .notification-badge {
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .dashboard-nav {
+                flex-direction: column;
+            }
+            
+            .dashboard-nav-item {
+                justify-content: center;
+            }
+            
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Animation for page transitions */
+        .dashboard-tab {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Course completion badges */
+        .completion-badge {
+            background: var(--success);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h2 class="dashboard-welcome">Welcome, <span id="userName">Trader</span>!</h2>
+                <div class="user-status">
+                    <div class="status-indicator"></div>
+                    <span>Active Student - Funded Account: $50,000</span>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </div>
         
-        <div class="dashboard-card">
-            <h3>Continue Learning</h3>
-            <div style="text-align: center; padding: 2rem 1rem;">
-                <p>Your next lesson: Market Structure Identification</p>
-                <a href="#" class="cta-button" style="margin-top: 1rem;">Resume Learning</a>
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-value">76%</div>
+                <div class="stat-label">Win Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">1:2.8</div>
+                <div class="stat-label">Avg Risk/Reward</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">$3,240</div>
+                <div class="stat-label">Monthly Profit</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">42</div>
+                <div class="stat-label">Trades This Month</div>
             </div>
         </div>
-    </div>
-    
-    <div id="signalsTab" class="dashboard-content" style="display: none;">
-        <div class="dashboard-card">
-            <h3>Live Trading Signals</h3>
-            <div class="signal-item">
-                <div class="signal-pair">EUR/USD - BUY</div>
-                <div>Entry: 1.0850 | SL: 1.0820 | TP: 1.0920</div>
-                <div class="signal-details">
-                    <span>Active</span>
-                    <span>Posted: 2 hours ago</span>
+        
+        <div class="dashboard-nav">
+            <div class="dashboard-nav-item active" onclick="switchDashboardTab('overview')">
+                <i class="fas fa-chart-line"></i> Overview
+            </div>
+            <div class="dashboard-nav-item" onclick="switchDashboardTab('courses')">
+                <i class="fas fa-graduation-cap"></i> My Courses
+            </div>
+            <div class="dashboard-nav-item" onclick="switchDashboardTab('signals')">
+                <i class="fas fa-bell"></i> Trading Signals
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="dashboard-nav-item" onclick="switchDashboardTab('community')">
+                <i class="fas fa-users"></i> Community
+            </div>
+            <div class="dashboard-nav-item" onclick="switchDashboardTab('account')">
+                <i class="fas fa-user-cog"></i> Account Settings
+            </div>
+        </div>
+        
+        <!-- Overview Tab -->
+        <div id="overviewTab" class="dashboard-tab" style="display: grid;">
+            <div class="dashboard-card">
+                <h3><i class="fas fa-chart-line"></i> Performance Overview</h3>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
                 </div>
             </div>
             
-            <div class="signal-item closed">
-                <div class="signal-pair">GBP/JPY - SELL</div>
-                <div>Entry: 183.50 | SL: 184.20 | TP: 181.80</div>
-                <div class="signal-details">
-                    <span>Target Hit (+170 pips)</span>
-                    <span>Posted: 1 day ago</span>
-                </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-trophy"></i> Recent Achievements</h3>
+                <ul class="course-list">
+                    <li>
+                        <div>Consistent Profit Challenge</div>
+                        <span class="completion-badge">Completed</span>
+                    </li>
+                    <li>
+                        <div>5 Consecutive Wins</div>
+                        <span class="completion-badge">Completed</span>
+                    </li>
+                    <li>
+                        <div>Risk Management Mastery</div>
+                        <span class="completion-badge">In Progress</span>
+                    </li>
+                </ul>
             </div>
             
-            <div class="signal-item">
-                <div class="signal-pair">XAU/USD - BUY</div>
-                <div>Entry: 1980 | SL: 1965 | TP: 2010</div>
-                <div class="signal-details">
-                    <span>Active</span>
-                    <span>Posted: 5 hours ago</span>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-calendar"></i> Upcoming Events</h3>
+                <div class="community-post">
+                    <div class="post-author">Live Q&A Session</div>
+                    <div class="post-content">Market analysis and Q&A with senior mentors</div>
+                    <div class="post-meta">
+                        <span><i class="far fa-clock"></i> Tomorrow, 3:00 PM GMT</span>
+                    </div>
+                </div>
+                <div class="community-post">
+                    <div class="post-author">Weekly Market Review</div>
+                    <div class="post-content">Analysis of the past week and outlook for next week</div>
+                    <div class="post-meta">
+                        <span><i class="far fa-clock"></i> Sunday, 5:00 PM GMT</span>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="dashboard-card">
-            <h3>Signal Performance</h3>
-            <div style="text-align: center; padding: 1rem;">
-                <div style="font-size: 2rem; color: var(--success); font-weight: bold;">76%</div>
-                <div>Success Rate</div>
+        <!-- Courses Tab -->
+        <div id="coursesTab" class="dashboard-tab">
+            <div class="dashboard-card">
+                <h3><i class="fas fa-graduation-cap"></i> Your Courses</h3>
+                <ul class="course-list">
+                    <li>
+                        <div>Price Action Mastery</div>
+                        <div class="course-progress">
+                            <div class="progress-bar" style="width: 35%;"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>Psychology Blueprint</div>
+                        <div class="course-progress">
+                            <div class="progress-bar" style="width: 15%;"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>Funding Challenge Prep</div>
+                        <div class="course-progress">
+                            <div class="progress-bar" style="width: 5%;"></div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div style="display: flex; justify-content: space-around; margin-top: 1.5rem;">
-                <div style="text-align: center;">
-                    <div style="font-size: 1.5rem; color: var(--flame-light);">42</div>
-                    <div>Winning Trades</div>
+            
+            <div class="dashboard-card">
+                <h3><i class="fas fa-play-circle"></i> Continue Learning</h3>
+                <div style="text-align: center; padding: 2rem 1rem;">
+                    <p>Your next lesson: Market Structure Identification</p>
+                    <a href="#" class="cta-button" style="margin-top: 1rem;">
+                        <i class="fas fa-play"></i> Resume Learning
+                    </a>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 1.5rem; color: #ff6b6b;">13</div>
-                    <div>Losing Trades</div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3><i class="fas fa-certificate"></i> Certificates</h3>
+                <div style="text-align: center; padding: 1.5rem;">
+                    <i class="fas fa-award" style="font-size: 3rem; color: var(--flame-blue); margin-bottom: 1rem;"></i>
+                    <p>Complete courses to earn certificates</p>
+                    <div style="background: rgba(0, 245, 255, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <strong>1</strong> of 5 certificates earned
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Signals Tab -->
+        <div id="signalsTab" class="dashboard-tab">
+            <div class="dashboard-card">
+                <h3><i class="fas fa-bell"></i> Live Trading Signals</h3>
+                <div class="signal-item">
+                    <div class="signal-pair">EUR/USD - BUY</div>
+                    <div>Entry: 1.0850 | SL: 1.0820 | TP: 1.0920</div>
+                    <div class="signal-details">
+                        <span>Active</span>
+                        <span>Posted: 2 hours ago</span>
+                    </div>
+                </div>
+                
+                <div class="signal-item closed">
+                    <div class="signal-pair">GBP/JPY - SELL</div>
+                    <div>Entry: 183.50 | SL: 184.20 | TP: 181.80</div>
+                    <div class="signal-details">
+                        <span>Target Hit (+170 pips)</span>
+                        <span>Posted: 1 day ago</span>
+                    </div>
+                </div>
+                
+                <div class="signal-item">
+                    <div class="signal-pair">XAU/USD - BUY</div>
+                    <div>Entry: 1980 | SL: 1965 | TP: 2010</div>
+                    <div class="signal-details">
+                        <span>Active</span>
+                        <span>Posted: 5 hours ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3><i class="fas fa-chart-bar"></i> Signal Performance</h3>
+                <div style="text-align: center; padding: 1rem;">
+                    <div style="font-size: 2rem; color: var(--success); font-weight: bold;">76%</div>
+                    <div>Success Rate</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="signalPerformanceChart"></canvas>
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 1.5rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--flame-light);">42</div>
+                        <div>Winning Trades</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: #ff6b6b;">13</div>
+                        <div>Losing Trades</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Community Tab -->
+        <div id="communityTab" class="dashboard-tab">
+            <div class="dashboard-card">
+                <h3><i class="fas fa-users"></i> Community Discussions</h3>
+                <div class="community-post">
+                    <div class="post-author">Michael T. (Funded Trader)</div>
+                    <div class="post-content">Just passed my $100K challenge! The psychology techniques from Module 3 were game-changing.</div>
+                    <div class="post-meta">
+                        <span><i class="far fa-clock"></i> 2 hours ago</span>
+                        <span><i class="far fa-comment"></i> 12 comments</span>
+                    </div>
+                </div>
+                
+                <div class="community-post">
+                    <div class="post-author">Sarah K. (Mentor)</div>
+                    <div class="post-content">Live Q&A session tomorrow at 3 PM GMT. Bring your charts and questions!</div>
+                    <div class="post-meta">
+                        <span><i class="far fa-clock"></i> 5 hours ago</span>
+                        <span><i class="far fa-comment"></i> 7 comments</span>
+                    </div>
+                </div>
+                
+                <div class="community-post">
+                    <div class="post-author">David R.</div>
+                    <div class="post-content">Can someone explain how to identify liquidity pools on the 15m chart?</div>
+                    <div class="post-meta">
+                        <span><i class="far fa-clock"></i> 1 day ago</span>
+                        <span><i class="far fa-comment"></i> 23 comments</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <textarea placeholder="Join the conversation..." style="width: 100%; padding: 0.75rem; border-radius: 4px; border: 1px solid var(--flame-blue); background: rgba(0,0,0,0.2); color: white; min-height: 80px;"></textarea>
+                    <button class="cta-button" style="margin-top: 0.5rem;">
+                        <i class="fas fa-paper-plane"></i> Post
+                    </button>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3><i class="fas fa-user-friends"></i> Top Contributors</h3>
+                <ul class="course-list">
+                    <li>
+                        <div>Sarah K.</div>
+                        <div>Mentor</div>
+                    </li>
+                    <li>
+                        <div>Michael T.</div>
+                        <div>Funded Trader</div>
+                    </li>
+                    <li>
+                        <div>David R.</div>
+                        <div>Advanced Student</div>
+                    </li>
+                    <li>
+                        <div>Jessica M.</div>
+                        <div>Advanced Student</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Account Tab -->
+        <div id="accountTab" class="dashboard-tab">
+            <div class="dashboard-card">
+                <h3><i class="fas fa-user-cog"></i> Account Settings</h3>
+                <div class="form-group">
+                    <label for="editName">Full Name</label>
+                    <input type="text" id="editName">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email Address</label>
+                    <input type="email" id="editEmail">
+                </div>
+                <div class="form-group">
+                    <label for="editPhone">Phone Number</label>
+                    <input type="tel" id="editPhone">
+                </div>
+                <div class="form-group">
+                    <label for="editCountry">Country</label>
+                    <input type="text" id="editCountry">
+                </div>
+                <button class="cta-button">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                
+                <h3 style="margin-top: 2rem;"><i class="fas fa-lock"></i> Change Password</h3>
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword">
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="confirmPassword">
+                </div>
+                <button class="cta-button">
+                    <i class="fas fa-key"></i> Update Password
+                </button>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span>Two-Factor Authentication</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #aaa;">Add an extra layer of security to your account</p>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span>Email Notifications</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #aaa;">Receive important account notifications</p>
+                </div>
+                
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span>Trading Signals</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #aaa;">Get notified about new trading signals</p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div id="communityTab" class="dashboard-content" style="display: none;">
-        <div class="dashboard-card">
-            <h3>Community Discussions</h3>
-            <div class="community-post">
-                <div class="post-author">Michael T. (Funded Trader)</div>
-                <div class="post-content">Just passed my $100K challenge! The psychology techniques from Module 3 were game-changing.</div>
-                <div class="post-meta">
-                    <span>2 hours ago</span>
-                    <span>12 comments</span>
-                </div>
-            </div>
+
+    <script>
+        // Dashboard functionality
+        function switchDashboardTab(tab) {
+            // Update active nav item
+            document.querySelectorAll('.dashboard-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
             
-            <div class="community-post">
-                <div class="post-author">Sarah K. (Mentor)</div>
-                <div class="post-content">Live Q&A session tomorrow at 3 PM GMT. Bring your charts and questions!</div>
-                <div class="post-meta">
-                    <span>5 hours ago</span>
-                    <span>7 comments</span>
-                </div>
-            </div>
+            // Show selected tab content
+            document.querySelectorAll('.dashboard-tab').forEach(tab => {
+                tab.style.display = 'none';
+            });
             
-            <div class="community-post">
-                <div class="post-author">David R.</div>
-                <div class="post-content">Can someone explain how to identify liquidity pools on the 15m chart?</div>
-                <div class="post-meta">
-                    <span>1 day ago</span>
-                    <span>23 comments</span>
-                </div>
-            </div>
+            document.getElementById(tab + 'Tab').style.display = 'grid';
             
-            <div style="margin-top: 1.5rem;">
-                <textarea placeholder="Join the conversation..." style="width: 100%; padding: 0.75rem; border-radius: 4px; border: 1px solid var(--flame-blue); background: rgba(0,0,0,0.2); color: white; min-height: 80px;"></textarea>
-                <button class="cta-button" style="margin-top: 0.5rem;">Post</button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="accountTab" class="dashboard-content" style="display: none;">
-        <div class="dashboard-card">
-            <h3>Account Settings</h3>
-            <div class="form-group">
-                <label for="editName">Full Name</label>
-                <input type="text" id="editName">
-            </div>
-            <div class="form-group">
-                <label for="editEmail">Email Address</label>
-                <input type="email" id="editEmail">
-            </div>
-            <div class="form-group">
-                <label for="editPhone">Phone Number</label>
-                <input type="tel" id="editPhone">
-            </div>
-            <div class="form-group">
-                <label for="editCountry">Country</label>
-                <input type="text" id="editCountry">
-            </div>
-            <button class="cta-button">Save Changes</button>
+            // Initialize charts if needed
+            if (tab === 'overview') {
+                initPerformanceChart();
+            } else if (tab === 'signals') {
+                initSignalPerformanceChart();
+            }
+        }
+        
+        // Initialize performance chart
+        function initPerformanceChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Account Balance',
+                        data: [50000, 51200, 49800, 50300, 51700, 53500, 55200, 56800, 58700, 60200, 62500, 64800],
+                        borderColor: '#00f5ff',
+                        backgroundColor: 'rgba(0, 245, 255, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize signal performance chart
+        function initSignalPerformanceChart() {
+            const ctx = document.getElementById('signalPerformanceChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Winning Trades', 'Losing Trades'],
+                    datasets: [{
+                        data: [42, 13],
+                        backgroundColor: [
+                            '#4CAF50',
+                            '#ff6b6b'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize dashboard when shown
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUser = localStorage.getItem('forexUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                document.getElementById('userName').textContent = user.name;
+                
+                // Prefill account settings
+                document.getElementById('editName').value = user.name;
+                document.getElementById('editEmail').value = user.email;
+                document.getElementById('editPhone').value = user.phone;
+                document.getElementById('editCountry').value = user.country;
+                
+                // Initialize charts
+                initPerformanceChart();
+            }
+        });
+        
+        // Toggle switch styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 24px;
+            }
             
-            <h3 style="margin-top: 2rem;">Change Password</h3>
-            <div class="form-group">
-                <label for="currentPassword">Current Password</label>
-                <input type="password" id="currentPassword">
-            </div>
-            <div class="form-group">
-                <label for="newPassword">New Password</label>
-                <input type="password" id="newPassword">
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm New Password</label>
-                <input type="password" id="confirmPassword">
-            </div>
-            <button class="cta-button">Update Password</button>
-        </div>
-    </div>
-</div>
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: .4s;
+            }
+            
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 16px;
+                width: 16px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+            }
+            
+            input:checked + .slider {
+                background-color: var(--flame-blue);
+            }
+            
+            input:checked + .slider:before {
+                transform: translateX(26px);
+            }
+            
+            .slider.round {
+                border-radius: 24px;
+            }
+            
+            .slider.round:before {
+                border-radius: 50%;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
     
     <!-- Footer -->
     <footer>
