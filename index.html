@@ -2602,7 +2602,24 @@ function logout() {
             });
         }
     });
-</script>
+        // In your existing auth functions:
+function openAuthModal() {
+    document.getElementById('authModal').style.display = 'block';
+}
+
+// After successful login:
+function showDashboard() {
+    // Hide main content
+    document.querySelectorAll('section, footer').forEach(el => {
+        el.style.display = 'none';
+    });
+    
+    // Show dashboard
+    document.getElementById('dashboard').style.display = 'block';
+    
+    // Update user name
+    document.getElementById('userName').textContent = currentUser.name;
+}
 </script>
     
 </body>
