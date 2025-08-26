@@ -1127,7 +1127,7 @@
                 <a href="#faq">FAQ</a>
                 <a href="#contact">Contact</a>
             </div>
-            <a href="#pricing" class="cta-button" id="enrollButton">Enroll Now</a>
+           <a href="#pricing" class="cta-button" id="enrollButton">Enroll Now</a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </nav>
     </div>
@@ -1139,7 +1139,7 @@
             <p>Join 100+ Victoria University students who transformed from beginners to funded traders in 12 weeks</p>
             
             <div class="hero-buttons">
-                <a href="#pricing" class="cta-button" style="padding: 0.9rem 2.5rem;">🎯 Enroll Now - Save 58%</a>
+                <a href="#pricing" class="cta-button" style="padding: 0.9rem 2.5rem;">🎯 Enroll Now</a>
                 <a href="#free-guide" class="cta-button" style="background: transparent; border: 2px solid var(--flame-blue);">Get Free Guide</a>
             </div>
         </div>
@@ -1292,13 +1292,12 @@
         </div>
     </section>
     
-   <!-- Pricing Section -->
+<!-- Pricing Section -->
 <section id="pricing" class="section">
     <div class="container">
         <h2 class="section-title">Ready to Transform Your Trading?</h2>
         <p style="text-align: center; max-width: 700px; margin: 0 auto 2rem;">Join hundreds of traders who've transformed their results with Forex Mastery Academy</p>
         
-
         <!-- Payment Button -->
         <div style="text-align: center; margin: 3rem 0;">
             <a href="https://selar.com/umur14" class="cta-button" style="padding: 1rem 2.5rem; font-size: 1.2rem;">
@@ -2569,6 +2568,41 @@ function logout() {
     // Scroll to top
     window.scrollTo(0, 0);
 }
+        <script>
+    // Check for payment success parameter
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentSuccess = urlParams.get('payment');
+        
+        if (paymentSuccess === 'success') {
+            // Show login modal after successful payment
+            openAuthModal();
+            
+            // Show message encouraging login
+            alert('Payment successful! Please login to access your dashboard.');
+        }
+        
+        // Check if user is already logged in
+        const savedUser = localStorage.getItem('forexUser');
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
+            showDashboard();
+        }
+    });
+    
+    // Update enroll buttons to redirect to payment
+    document.querySelectorAll('.cta-button').forEach(button => {
+        if (button.textContent.includes('Enroll Now')) {
+            button.addEventListener('click', function(e) {
+                // If not logged in, redirect to payment
+                if (!currentUser) {
+                    e.preventDefault();
+                    window.location.href = "https://selar.com/umur14";
+                }
+            });
+        }
+    });
+</script>
 </script>
     
 </body>
