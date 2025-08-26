@@ -1857,6 +1857,57 @@ window.addEventListener('DOMContentLoaded', () => {
     // allReviews = JSON.parse(localStorage.getItem('forexReviews')) || [];
     renderReviews();
 });
+
+        function showDashboard() {
+    // Hide main content
+    document.querySelectorAll('section, footer').forEach(el => {
+        el.style.display = 'none';
+    });
+    
+    // Show dashboard
+    document.getElementById('dashboard').style.display = 'block';
+    
+    // Update user name
+    document.getElementById('userName').textContent = currentUser.name;
+    
+    // Prefill account settings
+    document.getElementById('editName').value = currentUser.name;
+    document.getElementById('editEmail').value = currentUser.email;
+    document.getElementById('editPhone').value = currentUser.phone;
+    document.getElementById('editCountry').value = currentUser.country;
+}
+
+function switchDashboardTab(tab) {
+    // Update active nav item
+    document.querySelectorAll('.dashboard-nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Show selected tab content
+    document.getElementById('coursesTab').style.display = 'none';
+    document.getElementById('signalsTab').style.display = 'none';
+    document.getElementById('communityTab').style.display = 'none';
+    document.getElementById('accountTab').style.display = 'none';
+    
+    document.getElementById(tab + 'Tab').style.display = 'grid';
+}
+
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('forexUser');
+    
+    // Hide dashboard
+    document.getElementById('dashboard').style.display = 'none';
+    
+    // Show main content
+    document.querySelectorAll('section, footer').forEach(el => {
+        el.style.display = 'block';
+    });
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
 </script>
     
 </body>
