@@ -2758,6 +2758,67 @@ html {
 .urgent-pulse {
     animation: pulse 2s infinite;
 }
+        .step-indicators {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.step-indicators:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(0, 245, 255, 0.2);
+    z-index: 1;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: var(--dark-bg);
+    padding: 0 1rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.step.active {
+    color: var(--flame-light);
+}
+
+.step:before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0, 245, 255, 0.2);
+    margin: 0 auto 0.5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step[data-step="1"]:before {
+    content: '1';
+}
+
+.step[data-step="2"]:before {
+    content: '2';
+}
+
+.step[data-step="3"]:before {
+    content: '3';
+}
+
+.step.active:before {
+    background: var(--flame-blue);
+    color: var(--dark-bg);
+}
     </style>
     
     <script>
@@ -3006,6 +3067,99 @@ function showDashboard() {
     
     // Update user name
     document.getElementById('userName').textContent = currentUser.name;
+}
+        // Auth modal step management
+let currentStep = 1;
+
+function updateStepIndicators() {
+    document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+    });
+    
+    document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+    
+    document.querySelectorAll('.auth-form').forEach(form => {
+        form.classList.remove('active');
+    });
+    
+    if (currentStep === 1) {
+        document.getElementById('registerForm').classList.add('active');
+    } else if (currentStep === 2) {
+        document.getElementById('paymentForm').classList.add('active');
+    } else if (currentStep === 3) {
+        document.getElementById('successMessage').classList.add('active');
+    }
+}
+
+function proceedToPayment() {
+    // Basic validation
+    const name = document.getElementById('regName').value;
+    const email = document.getElementById('regEmail').value;
+    const phone = document.getElementById('regPhone').value;
+    const password = document.getElementById('regPassword').value;
+    const confirmPassword = document.getElementById('regConfirmPassword').value;
+    
+    if (!name || !email || !phone || !password || !confirmPassword) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+    }
+    
+    // Save user data temporarily
+    window.tempUserData = { name, email, phone, password };
+    
+    // Move to payment step
+    currentStep = 2;
+    updateStepIndicators();
+}
+
+function completePayment() {
+    // Basic payment validation
+    const cardNumber = document.getElementById('cardNumber').value;
+    const expiryDate = document.getElementById('expiryDate').value;
+    const cvv = document.getElementById('cvv').value;
+    
+    if (!cardNumber || !expiryDate || !cvv) {
+        alert('Please fill in all payment details');
+        return;
+    }
+    
+    // Simulate payment processing
+    setTimeout(() => {
+        // Create user account
+        const users = JSON.parse(localStorage.getItem('forexUsers') || '[]');
+        const newUser = { 
+            ...window.tempUserData, 
+            joined: new Date().toISOString(),
+            paymentStatus: 'completed'
+        };
+        
+        users.push(newUser);
+        localStorage.setItem('forexUsers', JSON.stringify(users));
+        
+        // Save to current session
+        localStorage.setItem('currentUser', JSON.stringify(newUser));
+        
+        // Move to success step
+        currentStep = 3;
+        updateStepIndicators();
+    }, 1500);
+}
+
+function accessDashboard() {
+    closeAuthModal();
+    showDashboard();
+}
+
+// Initialize the auth modal
+function openAuthModal() {
+    currentStep = 1;
+    updateStepIndicators();
+    document.getElementById('authModal').style.display = 'block';
 }
 </script>
     
